@@ -10,6 +10,18 @@ exports.headers = headers = {
 };
 
 exports.serveStaticAssets = function(res, folder, asset) {
+  // var data = fs.readFileSync(folder)
+  // console.log(data);
+  // res.writeHead(200, headers);
+  // res.end(data);
+
+  fs.readFile(folder, function(err, data) {
+    if (err) throw err;
+    console.log(data);
+    res.writeHead(200, headers);
+    res.end(data);
+  });
+
   //Write some code here that helps serve up your static files!
   //(Static files are things like html (yours or arhived from others...), css, or anything that doesn't change often.)
 };
