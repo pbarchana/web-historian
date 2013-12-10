@@ -1,5 +1,7 @@
 var path = require('path');
 var fs = require('fs');
+var sitesDir = path.join(__dirname, "../data/sites/");
+
 
 exports.headers = headers = {
   "access-control-allow-origin": "*",
@@ -9,21 +11,46 @@ exports.headers = headers = {
   'Content-Type': "text/html"
 };
 
-exports.serveStaticAssets = function(res, folder, asset) {
-  // var data = fs.readFileSync(folder)
-  // console.log(data);
-  // res.writeHead(200, headers);
-  // res.end(data);
+exports.serveGETMethod  =  function(res){
+  res.writeHead(200, headers);
+  res.end('<input></input>');
+}
 
-  fs.readFile(folder, function(err, data) {
+exports.serveStaticAssets = function(res, folder, asset) {
+  fs.readFile(folder, 'utf8', function(err, data) {
     if (err) throw err;
-    console.log(data);
-    res.writeHead(200, headers);
-    res.end(data);
+    var sites = data.split('\n');
+    searchForSite(sites);
   });
 
-  //Write some code here that helps serve up your static files!
-  //(Static files are things like html (yours or arhived from others...), css, or anything that doesn't change often.)
+  var searchForSite = function(sites) {
+    sites.forEach(function(site) {
+      if (site === asset.slice(1)) {
+        fs.readFile(sitesDir + site, 'utf8', function(err, data) {
+          if (err) throw err;
+          res.writeHead(200, headers);
+          res.end(data);
+        });
+      }
+    });
+  }
+
+
+  // var file = '';
+  // debugger;
+  // var data = fs.readFileSync(folder, 'utf8');
+  // file = JSON.parse(data);
+  // // for (var l in data) {
+  // //   var line = data[l];
+  // //   file += line;
+  // // }
+
+  // // fs.open(folder, 'r', function(err, fd) {
+  // //   if (err) throw err;
+  // //   file = fd;
+  // // });
+
+
 };
 
 // As you go through, keep thinking about what helper functions you can put here!
