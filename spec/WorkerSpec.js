@@ -15,6 +15,7 @@ describe("html fetcher helpers", function(){
     var resultArray;
 
     runs(function(){
+      debugger;
       htmlFetcherHelpers.readUrls(filePath, function(urls){
         resultArray = urls;
       });
@@ -27,8 +28,8 @@ describe("html fetcher helpers", function(){
     });
   });
 
-  xit("should have a 'downloadUrls' function", function(){
-    var result = htmlFetcherHelpers.downloadUrls();
+  it("should have a 'downloadUrls' function", function(){
+    var result = htmlFetcherHelpers.downloadUrls(["www.yahoo.com"]);
     expect(result).toBeTruthy();
   });
 });

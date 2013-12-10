@@ -46,7 +46,6 @@ exports.saveToSites = function(req, res, datadir) {
 
 exports.serveStaticAssets = function(res, folder, asset) {
   fs.readFile(folder, 'utf8', function(err, data) {
-
     if (err) throw err;
     var sites = data.split('\n');
     searchForSite(sites);
@@ -61,7 +60,7 @@ exports.serveStaticAssets = function(res, folder, asset) {
           res.end(data);
         });
       } else {
-        throw404(res);
+        throw404();
       }
     });
   }
