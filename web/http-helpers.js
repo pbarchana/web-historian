@@ -18,6 +18,7 @@ exports.serveGETMethod  =  function(res){
 
 exports.serveStaticAssets = function(res, folder, asset) {
   fs.readFile(folder, 'utf8', function(err, data) {
+
     if (err) throw err;
     var sites = data.split('\n');
     searchForSite(sites);
@@ -34,23 +35,6 @@ exports.serveStaticAssets = function(res, folder, asset) {
       }
     });
   }
-
-
-  // var file = '';
-  // debugger;
-  // var data = fs.readFileSync(folder, 'utf8');
-  // file = JSON.parse(data);
-  // // for (var l in data) {
-  // //   var line = data[l];
-  // //   file += line;
-  // // }
-
-  // // fs.open(folder, 'r', function(err, fd) {
-  // //   if (err) throw err;
-  // //   file = fd;
-  // // });
-
-
 };
 
 // As you go through, keep thinking about what helper functions you can put here!

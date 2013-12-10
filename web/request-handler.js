@@ -6,8 +6,7 @@ module.exports.datadir = path.join(__dirname, "../data/sites.txt"); // tests wil
 
 module.exports.handleRequest = function (req, res) {
   var path = url.parse(req.url).pathname;
-  console.log(exports.datadir);
-  if (path === "/") {
+  if (path === '/') {
     helpers.serveGETMethod(res);
   } else {
     helpers.serveStaticAssets(res, exports.datadir, path);
