@@ -6,9 +6,18 @@ module.exports.datadir = path.join(__dirname, "../data/sites.txt"); // tests wil
 
 module.exports.handleRequest = function (req, res) {
   var path = url.parse(req.url).pathname;
-  if (path === '/') {
-    helpers.serveGETMethod(res);
-  } else {
-    helpers.serveStaticAssets(res, exports.datadir, path);
+  if (req.method === 'GET') {
+    if (path === '/') {
+      helpers.serveGETMethod(res);
+    } else {
+      helpers.serveStaticAssets(res, exports.datadir, path);
+    }
+  }
+  if (req.method === 'POST') {
+    if (path === '/') {
+      helpers.saveToSites(req, res, exports.datadir);
+    } else {
+      helpers.throw404(res);
+    }
   }
 };

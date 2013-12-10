@@ -1,6 +1,8 @@
 var path = require('path');
 var fs = require('fs');
 var sitesDir = path.join(__dirname, "../data/sites/");
+// var datadir = path.join(__dirname, "../data/sites.txt"); // tests will need to override this.
+
 
 
 exports.headers = headers = {
@@ -14,6 +16,32 @@ exports.headers = headers = {
 exports.serveGETMethod  =  function(res){
   res.writeHead(200, headers);
   res.end('<input></input>');
+}
+
+exports.throw404 = throw404 = function(res) {
+  res.writeHead(404, headers);
+  res.end();
+}
+
+exports.saveToSites = function(req, res, datadir) {
+  var site = '';
+  debugger;
+  req.setEncoding('utf8');
+  req.on('data', function(chunk) {
+    site += chunk;
+  });
+  req.on('end', function() {
+    console.log("before JSON : ", site);
+    site = site.split('=')[1];
+    console.log('DEBUG: after json', site);
+
+    fs.appendFile(datadir, site + '\n', function(err) {
+      if (err) throw err;
+      console.log("Written to sites.txt");
+      res.writeHead(302, headers);
+      res.end();
+    });
+  });
 }
 
 exports.serveStaticAssets = function(res, folder, asset) {
@@ -32,6 +60,8 @@ exports.serveStaticAssets = function(res, folder, asset) {
           res.writeHead(200, headers);
           res.end(data);
         });
+      } else {
+        throw404(res);
       }
     });
   }
