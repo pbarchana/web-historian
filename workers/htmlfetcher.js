@@ -6,7 +6,6 @@ var dataDir = path.join(__dirname, "../data/");
 
 exports.fetchHTML = fetchHTML = function(){
   htmlHelpers.readUrls(dataDir + 'sites.txt', function(urls) {
-    debugger;
     htmlHelpers.downloadUrls(urls);
   });
 }

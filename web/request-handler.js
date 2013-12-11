@@ -7,13 +7,10 @@ module.exports.datadir = path.join(__dirname, "../data/sites.txt"); // tests wil
 
 module.exports.handleRequest = function (req, res) {
   var path = url.parse(req.url).pathname;
-  debugger;
-  htmlfetch.fetchHTML();
   if (req.method === 'GET') {
     // if (path === '/') {
     //   helpers.serveGETMethod(res);
     // } else 
-    debugger;
     if (path.indexOf('/sites/') === 0) {   //when not sites
       helpers.serveSite(path, res);
     } else {
