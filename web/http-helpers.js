@@ -1,6 +1,9 @@
 var path = require('path');
 var fs = require('fs');
+var dataDir = path.join(__dirname, "../data");
 var sitesDir = path.join(__dirname, "../data/sites/");
+var publicDir = path.join(__dirname, "/public/");
+
 // var datadir = path.join(__dirname, "../data/sites.txt"); // tests will need to override this.
 
 
@@ -41,6 +44,24 @@ exports.saveToSites = function(req, res, datadir) {
       res.writeHead(302, headers);
       res.end();
     });
+  });
+}
+
+exports.servePublicFiles = function(path, res) {
+  debugger;
+  fs.readFile(publicDir + path, 'utf8', function(err, data) {
+    if (err) throw err;
+    res.writeHead(200, headers);
+    res.end(data);
+  });
+}
+
+exports.serveSite = function(path, res) {
+  debugger;
+  fs.readFile(dataDir + path, 'utf8', function(err, data) {
+    if (err) throw err;
+    res.writeHead(200, headers);
+    res.end(data);
   });
 }
 

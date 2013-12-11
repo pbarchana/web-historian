@@ -29,7 +29,7 @@ describe("html fetcher helpers", function(){
   });
 
   it("should have a 'downloadUrls' function", function(){
-    var result = htmlFetcherHelpers.downloadUrls(["www.yahoo.com"]);
+    var result = htmlFetcherHelpers.downloadUrls(["www.bing.com", "www.hackreactor.com"]);
     expect(result).toBeTruthy();
   });
 });

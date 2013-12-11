@@ -7,16 +7,19 @@ exports.readUrls = function(filePath, callback){
   fs.readFile(filePath, 'utf8', function(err, data) {
     if (err) throw err;
     var urls = data.split('\n');
+    console.log(urls);
     callback(urls);
   });
 };
 
 exports.downloadUrls = function(urls){
   urls.forEach(function(url) {
-    var file = fs.createWriteStream(sitesDir + url);
-    var request = http.get("http://" + url, function(response) {
-      response.pipe(file);
-    });
+    if (url) { // test for ""
+      var file = fs.createWriteStream(sitesDir + url);
+      var request = http.get("http://" + url, function(response) {
+        response.pipe(file);
+      });
+    }
   });
   return true;
 };
